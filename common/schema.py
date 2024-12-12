@@ -3,6 +3,7 @@ import datetime
 import typing
 
 class Event(BaseModel):
+    event_id: str | None = None
     event_name: str
     start_time: datetime.datetime
     end_time: datetime.datetime

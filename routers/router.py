@@ -25,7 +25,6 @@ async def get_curr_date_events(curr_date: datetime.date) -> typing.List[Event]:
 async def add_event(event: Event):
     """
     add_event\n
-    event : \n
     event name: (string) \n
     start time: (Format : %Y-%m-%dT%H:%M:%S) \n
     end time: (Format : %Y-%m-%dT%H:%M:%S) \n
@@ -70,6 +69,7 @@ async def update_event(event_id: str, event: Event):
         raise ApiException(MyErrors.UPDATE_WITHIN_SAME_DATE[0], MyErrors.UPDATE_WITHIN_SAME_DATE[1])
     if curr_date in all_events.all_events_dict:
         try:
+            event.event_id = all_events.all_events_dict[curr_date].events[event_id].event_id # event_id shouldn't be changed
             all_events.all_events_dict[curr_date].events[event_id] = event
             return {"event_id": event_id}
         except Exception as e:

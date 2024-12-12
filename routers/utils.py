@@ -21,6 +21,7 @@ def add_event_to_store(curr_event: Event) -> typing.Tuple[bool, str, str | None]
     
     if curr_date not in all_events.all_events_dict:
         event_id: str = generate_id(curr_date)
+        curr_event.event_id = event_id
         all_events.all_events_dict[curr_date] = EventsList(curr_date=curr_date, events={event_id: curr_event})
         return True, "Created new list of events for curr date", event_id
     
@@ -36,6 +37,7 @@ def add_event_to_store(curr_event: Event) -> typing.Tuple[bool, str, str | None]
                 return False, f"Overlapping with ({l}, {r})", None
             
     curr_event_id: str = generate_id(curr_date=curr_date)
+    curr_event.event_id = curr_event_id
     all_events.all_events_dict[curr_date].events[curr_event_id] = curr_event
     return True, "No overlapping events", curr_event_id
 
